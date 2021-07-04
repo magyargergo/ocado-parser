@@ -1,11 +1,10 @@
 import csv
 import os
 import re
+from io import StringIO
 
 from pdfreader import SimplePDFViewer
 from xlsxwriter import Workbook
-
-TEMP_FILE_NAME = "tmp.csv"
 
 
 class OcadoPdfParser(SimplePDFViewer):
@@ -60,10 +59,6 @@ class OcadoPdfParser(SimplePDFViewer):
 
     def save_to_xlsx(self):
         parsed_pdf = self.parse()
-        parsed_pdf = parsed_pdf.replace("\t", ",")
-
-        with open(TEMP_FILE_NAME, "w", encoding='utf8') as text_file:
-            text_file.write(parsed_pdf)
 
         file_name = os.path.basename(self.file_path)
         workbook = Workbook(
@@ -72,13 +67,10 @@ class OcadoPdfParser(SimplePDFViewer):
         )
 
         worksheet = workbook.add_worksheet()
-        with open(TEMP_FILE_NAME, 'rt', encoding='utf8') as f:
-            reader = csv.reader(f)
-            for r, row in enumerate(reader):
-                for c, col in enumerate(row):
-                    worksheet.write(r, c, col)
+        f = StringIO(parsed_pdf)
+        reader = csv.reader(f, delimiter='\t')
+        for r, row in enumerate(reader):
+            for c, col in enumerate(row):
+                worksheet.write(r, c, col)
 
         workbook.close()
-
-        # Remove temp file
-        os.remove(TEMP_FILE_NAME)
