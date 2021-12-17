@@ -50,7 +50,7 @@ class OcadoPdfParser(SimplePDFViewer):
         orders = orders.replace("/ ", "/")
 
         # Tab Separated Values transformation
-        orders = re.sub(r"([a-zA-Z0-9\s]*)\s([0-9]*/[0-9]*)\s([0-9.]*)", r"\1\t\2\t\3", orders)
+        orders = re.sub(r"([a-zA-Z0-9\s]*)\s([0-9]*/[0-9]*)\s([0-9.]*)", r"\1\t\3", orders)
 
         return orders
 
