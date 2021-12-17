@@ -19,5 +19,5 @@ setup(
     include_package_data=True,
     install_requires=requirements,
     tests_require=[],
-    long_description=read('README.rst'),
+    long_description=read('README.md'),
 )
