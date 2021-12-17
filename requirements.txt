@@ -6,3 +6,4 @@ python-dateutil==2.8.1
 six==1.16.0
 odswriter==0.4.0
 black==21.12b0
+pre-commit==2.16.0
