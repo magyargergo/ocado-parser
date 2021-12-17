@@ -22,8 +22,8 @@ class OcadoPdfParser(SimplePDFViewer):
 
         strings = self.canvas.strings
 
-        deliveryCost = False
-        hasCoupons = False
+        has_delivery_cost = False
+        has_coupons = False
         # Find "Picking, packing and delivery" (additional cost)
         try:
             start_index = strings.index("Picking,")
@@ -31,9 +31,9 @@ class OcadoPdfParser(SimplePDFViewer):
             delivery = " ".join(strings[start_index:end_index])
             delivery = re.sub(r" +", " ", delivery)
             delivery = re.sub(r"([a-zA-Z0-9\s]*)\s£([0-9.]*)", r"\1\t\2", delivery)
-            deliveryCost = True
+            has_delivery_cost = True
         except:
-            deliveryCost = False
+            has_delivery_cost = False
 
         # Find "Vouchers and extras" (cost reduction)
         try:
@@ -42,9 +42,9 @@ class OcadoPdfParser(SimplePDFViewer):
             coupons = " ".join(strings[start_index:end_index])
             coupons = re.sub(r" +", " ", coupons)
             coupons = re.sub(r"([a-zA-Z0-9\s]*)\s-£([0-9.]*)", r"\1\t-\2", coupons)
-            hasCoupons = True
+            has_coupons = True
         except:
-            hasCoupons = False
+            has_coupons = False
 
         start_index = strings.index("(£)") + 1
         end_index = len(strings) - strings[-1::-1].index("Offers") - 1
@@ -76,9 +76,9 @@ class OcadoPdfParser(SimplePDFViewer):
         # Tab Separated Values transformation
         items = re.sub(r"([a-zA-Z0-9\s]*)\s([0-9]*/[0-9]*)\s([0-9.]*)", r"\1\t\3", items)
 
-        if deliveryCost == True:
+        if has_delivery_cost == True:
             items = items + '\n' + delivery
-        if hasCoupons == True:
+        if has_coupons == True:
             items = items + '\n' + coupons
 
         return items
