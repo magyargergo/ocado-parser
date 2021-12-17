@@ -26,33 +26,33 @@ class OcadoPdfParser(SimplePDFViewer):
         end_index = len(strings) - strings[-1::-1].index("Offers") - 1
 
         # Join string array from the start index to the end index
-        orders = " ".join(strings[start_index:end_index])
+        items = " ".join(strings[start_index:end_index])
 
         # Remove any starts
-        orders = orders.replace("*", "")
+        items = items.replace("*", "")
 
-        # Add new lines between orders
-        orders = re.sub(r"(\.[0-9][0-9]) +([A-Z])", r"\1\n\2", orders)
+        # Add new lines between items
+        items = re.sub(r"(\.[0-9][0-9]) +([A-Z])", r"\1\n\2", items)
 
         # Remove extra spaces
-        orders = re.sub(r" +", " ", orders)
+        items = re.sub(r" +", " ", items)
 
         # Remove everything that is not in big letters
-        orders = re.sub(r"[A-Z](?<=[^\d])([A-Z]?[a-z|\'\-/]+ ){2,}", "", orders)
+        items = re.sub(r"[A-Z](?<=[^\d])([A-Z]?[a-z|\'\-/]+ ){2,}", "", items)
 
         # Remove days
-        orders = re.sub(r"Monday |Tuesday |Wednesday |Thursday |Friday |Saturday |Sunday ", "", orders)
+        items = re.sub(r"Monday |Tuesday |Wednesday |Thursday |Friday |Saturday |Sunday ", "", items)
 
         # Remove leftovers
-        orders = re.sub(r"\(£\) ?", "", orders)
+        items = re.sub(r"\(£\) ?", "", items)
 
         # Replace additional space after slash
-        orders = orders.replace("/ ", "/")
+        items = items.replace("/ ", "/")
 
         # Tab Separated Values transformation
-        orders = re.sub(r"([a-zA-Z0-9\s]*)\s([0-9]*/[0-9]*)\s([0-9.]*)", r"\1\t\3", orders)
+        items = re.sub(r"([a-zA-Z0-9\s]*)\s([0-9]*/[0-9]*)\s([0-9.]*)", r"\1\t\3", items)
 
-        return orders
+        return items
 
     def save_to_ods(self):
         parsed_pdf = self.parse()
