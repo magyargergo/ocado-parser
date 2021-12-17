@@ -29,7 +29,8 @@ class OcadoPdfParser(SimplePDFViewer):
             start_index = strings.index("Picking,")
             end_index = strings.index("Offers") - 1
             delivery = " ".join(strings[start_index:end_index])
-            delivery = re.sub(r" +", " ", delivery)
+            # Remove duplicate spaces
+            delivery = " ".join(delivery.split())
             delivery = re.sub(r"([a-zA-Z0-9\s]*)\s£([0-9.]*)", r"\1\t\2", delivery)
             has_delivery_cost = True
         except:
@@ -40,7 +41,8 @@ class OcadoPdfParser(SimplePDFViewer):
             start_index = strings.index("Vouchers")
             end_index = strings.index("Offers")
             coupons = " ".join(strings[start_index:end_index])
-            coupons = re.sub(r" +", " ", coupons)
+            # Remove duplicate spaces
+            coupons = " ".join(coupons.split())
             coupons = re.sub(r"([a-zA-Z0-9\s]*)\s-£([0-9.]*)", r"\1\t-\2", coupons)
             has_coupons = True
         except:
