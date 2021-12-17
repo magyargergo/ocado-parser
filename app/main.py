@@ -8,9 +8,8 @@ def main():
         f = os.path.join(directory, filename)
         if os.path.isfile(f):
             if f.endswith('.pdf'):
-                print(f)
                 parser = OcadoPdfParser(file_name=f)
-                parser.save_to_xlsx()
+                parser.save_to_ods()
 
 
 if __name__ == "__main__":

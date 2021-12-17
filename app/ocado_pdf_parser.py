@@ -4,7 +4,7 @@ import re
 from io import StringIO
 
 from pdfreader import SimplePDFViewer
-from xlsxwriter import Workbook
+import odswriter as ods
 
 
 class OcadoPdfParser(SimplePDFViewer):
@@ -54,20 +54,13 @@ class OcadoPdfParser(SimplePDFViewer):
 
         return orders
 
-    def save_to_xlsx(self):
+    def save_to_ods(self):
         parsed_pdf = self.parse()
 
         file_name = os.path.basename(self.file_path)
-        workbook = Workbook(
-            "./static/output/" + os.path.splitext(file_name)[0] + ".xlsx",
-            {"constant_memory": True}
-        )
-
-        worksheet = workbook.add_worksheet()
-        f = StringIO(parsed_pdf)
-        reader = csv.reader(f, delimiter='\t')
-        for r, row in enumerate(reader):
-            for c, col in enumerate(row):
-                worksheet.write(r, c, col)
-
-        workbook.close()
+        with ods.writer(open("./static/output/" + os.path.splitext(file_name)[0] + ".ods","wb")) as odsfile:
+            f = StringIO(parsed_pdf)
+            reader = csv.reader(f, delimiter='\t')
+            for r, row in enumerate(reader):
+                item, price = row
+                odsfile.writerow([item, float(price)])
