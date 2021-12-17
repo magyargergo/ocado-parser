@@ -6,7 +6,6 @@ from tests.common.test_helper import TestHelper
 
 
 class TestOcadoPdfParser(TestCase):
-
     def setUp(self) -> None:
         self.helper = TestHelper()
         self.maxDiff = sys.maxsize
@@ -18,7 +17,9 @@ class TestOcadoPdfParser(TestCase):
             parser = OcadoPdfParser(file_name=f"../tests/data/pdf/{receipt_pdf}")
             parsed_file = parser.parse()
 
-            self.assertEqual(validation_file.replace(" ", ""), parsed_file.replace(" ", ""))
+            self.assertEqual(
+                validation_file.replace(" ", ""), parsed_file.replace(" ", "")
+            )
 
     def test_receipt_3129973309(self):
         receipt_pdf = "receipt-3129973309.pdf"
@@ -27,7 +28,9 @@ class TestOcadoPdfParser(TestCase):
             parser = OcadoPdfParser(file_name=f"../tests/data/pdf/{receipt_pdf}")
             parsed_file = parser.parse()
 
-            self.assertEqual(validation_file.replace(" ", ""), parsed_file.replace(" ", ""))
+            self.assertEqual(
+                validation_file.replace(" ", ""), parsed_file.replace(" ", "")
+            )
 
     def test_receipt_3482933001(self):
         receipt_pdf = "receipt-3482933001.pdf"
@@ -36,7 +39,9 @@ class TestOcadoPdfParser(TestCase):
             parser = OcadoPdfParser(file_name=f"../tests/data/pdf/{receipt_pdf}")
             parsed_file = parser.parse()
 
-            self.assertEqual(validation_file.replace(" ", ""), parsed_file.replace(" ", ""))
+            self.assertEqual(
+                validation_file.replace(" ", ""), parsed_file.replace(" ", "")
+            )
 
     def test_receipt_3790976741(self):
         receipt_pdf = "receipt-3790976741.pdf"
@@ -45,7 +50,9 @@ class TestOcadoPdfParser(TestCase):
             parser = OcadoPdfParser(file_name=f"../tests/data/pdf/{receipt_pdf}")
             parsed_file = parser.parse()
 
-            self.assertEqual(validation_file.replace(" ", ""), parsed_file.replace(" ", ""))
+            self.assertEqual(
+                validation_file.replace(" ", ""), parsed_file.replace(" ", "")
+            )
 
     def test_receipt_3845981748(self):
         receipt_pdf = "receipt-3845981748.pdf"
@@ -54,4 +61,6 @@ class TestOcadoPdfParser(TestCase):
             parser = OcadoPdfParser(file_name=f"../tests/data/pdf/{receipt_pdf}")
             parsed_file = parser.parse()
 
-            self.assertEqual(validation_file.replace(" ", ""), parsed_file.replace(" ", ""))
+            self.assertEqual(
+                validation_file.replace(" ", ""), parsed_file.replace(" ", "")
+            )

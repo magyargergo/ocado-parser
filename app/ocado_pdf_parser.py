@@ -14,7 +14,7 @@ class OcadoPdfParser(SimplePDFViewer):
 
         self.file_path = file_name
 
-        super().__init__(open(self.file_path, 'rb'))
+        super().__init__(open(self.file_path, "rb"))
 
     def parse(self):
         self.navigate(1)
@@ -65,7 +65,11 @@ class OcadoPdfParser(SimplePDFViewer):
         items = re.sub(r"[A-Z](?<=[^\d])([A-Z]?[a-z|\'\-/]+ ){2,}", "", items)
 
         # Remove days
-        items = re.sub(r"Monday |Tuesday |Wednesday |Thursday |Friday |Saturday |Sunday ", "", items)
+        items = re.sub(
+            r"Monday |Tuesday |Wednesday |Thursday |Friday |Saturday |Sunday ",
+            "",
+            items,
+        )
 
         # Remove leftovers
         items = re.sub(r"\(£\) ?", "", items)
@@ -74,12 +78,14 @@ class OcadoPdfParser(SimplePDFViewer):
         items = items.replace("/ ", "/")
 
         # Tab Separated Values transformation
-        items = re.sub(r"([a-zA-Z0-9\s]*)\s([0-9]*/[0-9]*)\s([0-9.]*)", r"\1\t\3", items)
+        items = re.sub(
+            r"([a-zA-Z0-9\s]*)\s([0-9]*/[0-9]*)\s([0-9.]*)", r"\1\t\3", items
+        )
 
         if has_delivery_cost == True:
-            items = items + '\n' + delivery
+            items = items + "\n" + delivery
         if has_coupons == True:
-            items = items + '\n' + coupons
+            items = items + "\n" + coupons
 
         return items
 
@@ -87,9 +93,11 @@ class OcadoPdfParser(SimplePDFViewer):
         parsed_pdf = self.parse()
 
         file_name = os.path.basename(self.file_path)
-        with ods.writer(open("./static/output/" + os.path.splitext(file_name)[0] + ".ods","wb")) as odsfile:
+        with ods.writer(
+            open("./static/output/" + os.path.splitext(file_name)[0] + ".ods", "wb")
+        ) as odsfile:
             f = StringIO(parsed_pdf)
-            reader = csv.reader(f, delimiter='\t')
+            reader = csv.reader(f, delimiter="\t")
             for r, row in enumerate(reader):
                 item, price = row
                 odsfile.writerow([item, float(price)])

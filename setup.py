@@ -15,9 +15,9 @@ setup(
     description="A simple tool to parse ocardo receipt.",
     license="MIT",
     author="Gergo Magyar",
-    packages=find_packages(exclude=['tests']),
+    packages=find_packages(exclude=["tests"]),
     include_package_data=True,
     install_requires=requirements,
     tests_require=[],
-    long_description=read('README.md'),
+    long_description=read("README.md"),
 )
