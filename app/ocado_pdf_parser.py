@@ -28,7 +28,7 @@ class OcadoPdfParser(SimplePDFViewer):
         # Join string array from the start index to the end index
         items = " ".join(strings[start_index:end_index])
 
-        # Remove any starts
+        # Remove any stars
         items = items.replace("*", "")
 
         # Add new lines between items
