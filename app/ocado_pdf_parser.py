@@ -12,10 +12,7 @@ class OcadoPdfParser(SimplePDFViewer):
         if not file_name.endswith(".pdf"):
             raise Exception("Only expected file format is PDF.")
 
-        self.file_path = os.path.join(
-            os.path.dirname(__file__),
-            file_name
-        )
+        self.file_path = file_name
 
         super().__init__(open(self.file_path, 'rb'))
 
@@ -62,7 +59,7 @@ class OcadoPdfParser(SimplePDFViewer):
 
         file_name = os.path.basename(self.file_path)
         workbook = Workbook(
-            "../static/output/" + os.path.splitext(file_name)[0] + ".xlsx",
+            "./static/output/" + os.path.splitext(file_name)[0] + ".xlsx",
             {"constant_memory": True}
         )
 
