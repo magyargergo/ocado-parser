@@ -24,29 +24,33 @@ class OcadoPdfParser(SimplePDFViewer):
 
         has_delivery_cost = False
         has_coupons = False
-        # Find "Picking, packing and delivery" (additional cost)
+        # Find block with "Picking, packing and delivery" (additional cost) and "Vouchers and extras" (cost reduction)
+
         try:
             start_index = strings.index("Picking,")
+            has_vouchers = "Vouchers" in strings
             end_index = strings.index("Offers") - 1
-            delivery = " ".join(strings[start_index:end_index])
+            if has_vouchers:
+                print("Has vouchers")
+                end_index = strings.index("Vouchers") - 1
+                delivery = " ".join(strings[start_index:end_index])
+                start_index = strings.index("Vouchers")
+                end_index = strings.index("Offers")
+                coupons = " ".join(strings[start_index:end_index])
+                # Remove duplicate spaces
+                coupons = " ".join(coupons.split())
+                coupons = re.sub(r"([a-zA-Z0-9\s]*)\s-£([0-9.]*)", r"\1\t-\2", coupons)
+                coupons = "\n" + coupons
+                has_coupons = True
+            else:
+                delivery = " ".join(strings[start_index:end_index])
             # Remove duplicate spaces
             delivery = " ".join(delivery.split())
             delivery = re.sub(r"([a-zA-Z0-9\s]*)\s£([0-9.]*)", r"\1\t\2", delivery)
+            delivery = "\n" + delivery
             has_delivery_cost = True
         except:
             has_delivery_cost = False
-
-        # Find "Vouchers and extras" (cost reduction)
-        try:
-            start_index = strings.index("Vouchers")
-            end_index = strings.index("Offers")
-            coupons = " ".join(strings[start_index:end_index])
-            # Remove duplicate spaces
-            coupons = " ".join(coupons.split())
-            coupons = re.sub(r"([a-zA-Z0-9\s]*)\s-£([0-9.]*)", r"\1\t-\2", coupons)
-            has_coupons = True
-        except:
-            has_coupons = False
 
         start_index = strings.index("(£)") + 1
         end_index = len(strings) - strings[-1::-1].index("Offers") - 1
@@ -84,10 +88,13 @@ class OcadoPdfParser(SimplePDFViewer):
             r"([a-zA-Z0-9\s]*)\s([0-9]*/[0-9]*)\s([0-9.]*)", r"\1\t\3", items
         )
 
+        # Remove final new line
+        items = items.rstrip("\n")
+
         if has_delivery_cost == True:
-            items = items + "\n" + delivery
+            items = items + delivery
         if has_coupons == True:
-            items = items + "\n" + coupons
+            items = items + coupons
 
         return items
 

@@ -9,7 +9,7 @@ class TestHelper:
 
     def get_input_files(self, data_type, directory_name):
         sub_dir = "pdf" if data_type == TestHelper.PDF else "txt"
-        path = f"{directory_name}/{sub_dir}"
+        path = f"./tests/data/{sub_dir}"
         return [f for f in listdir(path) if isfile(join(path, f))]
 
     def get_validation_file(self, file_name: str):
