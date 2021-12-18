@@ -9,3 +9,4 @@ tests/common/__pycache__
 
 tests/__init__.pyc
 coverage.xml
+.coverage
