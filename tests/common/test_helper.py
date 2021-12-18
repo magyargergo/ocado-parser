@@ -7,13 +7,13 @@ class TestHelper:
     PDF = 1
     TXT = 2
 
-    def get_input_files(self, data_type, directory_name):
+    def get_input_files(self, data_type):
         sub_dir = "pdf" if data_type == TestHelper.PDF else "txt"
         path = f"./tests/data/{sub_dir}"
         return [f for f in listdir(path) if isfile(join(path, f))]
 
     def get_validation_file(self, file_name: str):
-        files = self.get_input_files(TestHelper.TXT, "data")
+        files = self.get_input_files(TestHelper.TXT)
         file_name_without_ext = file_name.replace(".pdf", "")
         for file in files:
             if file_name_without_ext in file:
