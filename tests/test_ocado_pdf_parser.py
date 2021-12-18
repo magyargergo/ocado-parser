@@ -1,6 +1,7 @@
-import sys
+from sys import maxsize
 from unittest import TestCase
 from os.path import exists
+from os import makedirs
 
 from app.ocado_pdf_parser import OcadoPdfParser
 from tests.common.test_helper import TestHelper
@@ -9,7 +10,7 @@ from tests.common.test_helper import TestHelper
 class TestOcadoPdfParser(TestCase):
     def setUp(self) -> None:
         self.helper = TestHelper()
-        self.maxDiff = sys.maxsize
+        self.maxDiff = maxsize
 
     def test_unknown_file_extension(self):
         unknown_file = "unknown.txt"
@@ -21,6 +22,9 @@ class TestOcadoPdfParser(TestCase):
         receipt_file = "receipt-3129973309"
         validation_file = self.helper.get_validation_file(receipt_file + ".pdf")
         if validation_file is not None:
+            output_path = "./static/output/"
+            makedirs(output_path, exist_ok=True)
+
             parser = OcadoPdfParser(file_name=f"./tests/data/pdf/{receipt_file}.pdf")
             parser.save_to_ods()
 
