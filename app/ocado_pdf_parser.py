@@ -31,7 +31,6 @@ class OcadoPdfParser(SimplePDFViewer):
             has_vouchers = "Vouchers" in strings
             end_index = strings.index("Offers") - 1
             if has_vouchers:
-                print("Has vouchers")
                 end_index = strings.index("Vouchers") - 1
                 delivery = " ".join(strings[start_index:end_index])
                 start_index = strings.index("Vouchers")
