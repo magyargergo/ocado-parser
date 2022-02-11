@@ -28,6 +28,7 @@ Your ODS files will be in `/static/output`
 * Implement api for uploading pdf
 * AWS integration
 * dockerization
+* Implement Sainsbury's pdf parser
 
 ## Contributors 
 
