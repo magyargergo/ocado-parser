@@ -1,6 +1,6 @@
 import os
 from setuptools import setup, find_packages
-from app import __version__
+from apps import __version__
 
 
 def read(fname):

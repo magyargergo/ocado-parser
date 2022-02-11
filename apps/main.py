@@ -1,5 +1,5 @@
 import os
-from app.ocado_pdf_parser import OcadoPdfParser
+from apps.ocado_pdf_parser import OcadoPdfParser
 
 
 def main():

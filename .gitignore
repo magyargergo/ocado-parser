@@ -1,6 +1,6 @@
 /venv/
 /.idea/
-/app/__pycache__
+/apps/__pycache__
 /static/output/
 /static/pdf/
 run.bat

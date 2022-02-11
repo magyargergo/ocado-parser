@@ -6,7 +6,7 @@ from unittest import TestCase
 from os.path import exists, join
 from os import makedirs
 
-from app.ocado_pdf_parser import OcadoPdfParser
+from apps.ocado_pdf_parser import OcadoPdfParser
 from tests.common.test_helper import TestHelper
 
 PREFIX = "receipt-"
