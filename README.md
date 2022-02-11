@@ -8,7 +8,7 @@
 ## Install
 
 ```
-$ git clone https://github.com/SavageCore/ocado-parser.git
+$ git clone https://github.com/magyargergo/ocado-parser.git
 $ pip install -r requirements.txt
 ```
 
