@@ -90,20 +90,22 @@ class OcadoPdfParser(SimplePDFViewer):
         # Remove final new line
         items = items.rstrip("\n")
 
-        if has_delivery_cost == True:
+        # Append delivery cost
+        if has_delivery_cost:
             items = items + delivery
-        if has_coupons == True:
+
+        # Append coupons
+        if has_coupons:
             items = items + coupons
 
         return items
 
-    def save_to_ods(self):
+    def save_to_ods(self, output_location: str):
         parsed_pdf = self.parse()
 
-        file_name = os.path.basename(self.file_path)
-        with ods.writer(
-            open("./static/output/" + os.path.splitext(file_name)[0] + ".ods", "wb")
-        ) as odsfile:
+        file_name = os.path.splitext(os.path.basename(self.file_path))[0]
+        file_path = os.path.join(output_location, f"{file_name}.ods")
+        with ods.writer(open(file_path, "wb")) as odsfile:
             f = StringIO(parsed_pdf)
             reader = csv.reader(f, delimiter="\t")
             for r, row in enumerate(reader):
