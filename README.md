@@ -22,13 +22,13 @@ $ python -m app.main
 
 Your ODS files will be in `/static/output`
 
-## Why?
+## Future plans
 
-Primarily because organising the weekly shop bill with housemates is a faff!
+* Support parsing of substitutions
+* Implement api for uploading pdf
+* AWS integration
+* dockerization
 
-However, I created this fork of [magyargergo/ocado-parser](https://github.com/magyargergo/ocado-parser) to do the following:
+## Contributors 
 
-* Remove quantity from spreadsheet
-* Switch from XLSX to [OpenDocument](https://www.libreoffice.org/discover/what-is-opendocument/) Spreadsheet (ods)
-* Support parsing multiple receipts in one run
-* Learn some more Python (primarily unit testing)
+* [Oliver Sayers](https://github.com/SavageCore)
