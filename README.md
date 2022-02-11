@@ -29,6 +29,7 @@ Your ODS files will be in `/static/output`
 * AWS integration
 * dockerization
 * Implement Sainsbury's pdf parser
+* Bring back xls output
 
 ## Contributors 
 
