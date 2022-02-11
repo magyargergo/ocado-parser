@@ -2,3 +2,10 @@
 /.idea/
 /app/__pycache__
 /static/output/
+/static/pdf/
+run.bat
+tests/__pycache__
+tests/common/__pycache__
+tests/__init__.pyc
+coverage.xml
+.coverage
