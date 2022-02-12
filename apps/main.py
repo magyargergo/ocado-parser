@@ -1,5 +1,5 @@
 import os
-from apps.ocado_pdf_parser import OcadoPdfParser
+from apps.ocado_receipt_pdf_parser import OcadoReceiptPdfParser
 
 
 def main():
@@ -9,7 +9,7 @@ def main():
         f = os.path.join(directory, filename)
         if os.path.isfile(f):
             if f.endswith(".pdf"):
-                parser = OcadoPdfParser(file_name=f)
+                parser = OcadoReceiptPdfParser(file_path=f)
                 parser.save_to_ods(output_location=output)
 
 

@@ -4,3 +4,4 @@ black==21.12b0
 pre-commit==2.16.0
 pytest==6.2.5
 pytest-cov==3.0.0
+XlsxWriter==1.4.3

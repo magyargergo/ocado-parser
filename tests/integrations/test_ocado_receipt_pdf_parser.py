@@ -6,7 +6,7 @@ from unittest import TestCase
 from os.path import exists, join
 from os import makedirs
 
-from apps.ocado_pdf_parser import OcadoPdfParser
+from apps.ocado_receipt_pdf_parser import OcadoReceiptPdfParser
 from tests.common.test_helper import TestHelper
 
 PREFIX = "receipt-"
@@ -23,7 +23,7 @@ def cleanup(request):
     request.addfinalizer(remove_test_dir)
 
 
-class TestOcadoPdfParser(TestCase):
+class TestOcadoReceiptPdfParser(TestCase):
     def setUp(self) -> None:
         self.helper = TestHelper()
         self.maxDiff = maxsize
@@ -31,24 +31,36 @@ class TestOcadoPdfParser(TestCase):
     def test_unknown_file_extension(self):
         unknown_file = "unknown.txt"
         with self.assertRaises(Exception) as context:
-            OcadoPdfParser(file_name=unknown_file)
+            OcadoReceiptPdfParser(file_path=unknown_file)
             self.assertTrue("Only expected file format is PDF." in context.exception)
 
     def test_saves_ods(self):
         receipt_file = f"{PREFIX}3129973309"
         makedirs(TESTING_DIR, exist_ok=True)
 
-        parser = OcadoPdfParser(file_name=self.helper.get_pdf(receipt_file))
+        parser = OcadoReceiptPdfParser(file_path=self.helper.get_pdf_path(receipt_file))
         parser.save_to_ods(output_location=TESTING_DIR)
 
         file_exists = exists(join(TESTING_DIR, f"{receipt_file}.ods"))
+        self.assertTrue(file_exists)
+
+    def test_saves_xls(self):
+        receipt_file = f"{PREFIX}3129973309"
+        makedirs(TESTING_DIR, exist_ok=True)
+
+        parser = OcadoReceiptPdfParser(file_path=self.helper.get_pdf_path(receipt_file))
+        parser.save_to_xls(output_location=TESTING_DIR)
+
+        file_exists = exists(join(TESTING_DIR, f"{receipt_file}.xls"))
         self.assertTrue(file_exists)
 
     def test_receipt_3129973309(self):
         receipt_file = f"{PREFIX}3129973309"
         validation_file = self.helper.get_validation_file(receipt_file)
         if validation_file is not None:
-            parser = OcadoPdfParser(file_name=self.helper.get_pdf(receipt_file))
+            parser = OcadoReceiptPdfParser(
+                file_path=self.helper.get_pdf_path(receipt_file)
+            )
             parsed_file = parser.parse()
 
             self.assertEqual(
@@ -59,7 +71,9 @@ class TestOcadoPdfParser(TestCase):
         receipt_file = f"{PREFIX}3203908341"
         validation_file = self.helper.get_validation_file(receipt_file)
         if validation_file is not None:
-            parser = OcadoPdfParser(file_name=self.helper.get_pdf(receipt_file))
+            parser = OcadoReceiptPdfParser(
+                file_path=self.helper.get_pdf_path(receipt_file)
+            )
             parsed_file = parser.parse()
 
             self.assertEqual(
@@ -70,7 +84,9 @@ class TestOcadoPdfParser(TestCase):
         receipt_file = f"{PREFIX}3433538625"
         validation_file = self.helper.get_validation_file(receipt_file)
         if validation_file is not None:
-            parser = OcadoPdfParser(file_name=self.helper.get_pdf(receipt_file))
+            parser = OcadoReceiptPdfParser(
+                file_path=self.helper.get_pdf_path(receipt_file)
+            )
             parsed_file = parser.parse()
 
             self.assertEqual(
@@ -81,7 +97,9 @@ class TestOcadoPdfParser(TestCase):
         receipt_file = f"{PREFIX}3482933001"
         validation_file = self.helper.get_validation_file(receipt_file)
         if validation_file is not None:
-            parser = OcadoPdfParser(file_name=self.helper.get_pdf(receipt_file))
+            parser = OcadoReceiptPdfParser(
+                file_path=self.helper.get_pdf_path(receipt_file)
+            )
             parsed_file = parser.parse()
 
             self.assertEqual(
@@ -92,7 +110,9 @@ class TestOcadoPdfParser(TestCase):
         receipt_file = f"{PREFIX}3790976741"
         validation_file = self.helper.get_validation_file(receipt_file)
         if validation_file is not None:
-            parser = OcadoPdfParser(file_name=self.helper.get_pdf(receipt_file))
+            parser = OcadoReceiptPdfParser(
+                file_path=self.helper.get_pdf_path(receipt_file)
+            )
             parsed_file = parser.parse()
 
             self.assertEqual(
@@ -103,7 +123,9 @@ class TestOcadoPdfParser(TestCase):
         receipt_file = f"{PREFIX}3845981748"
         validation_file = self.helper.get_validation_file(receipt_file)
         if validation_file is not None:
-            parser = OcadoPdfParser(file_name=self.helper.get_pdf(receipt_file))
+            parser = OcadoReceiptPdfParser(
+                file_path=self.helper.get_pdf_path(receipt_file)
+            )
             parsed_file = parser.parse()
 
             self.assertEqual(

@@ -1,22 +1,13 @@
-import csv
-import os
 import re
-from io import StringIO
 
-from pdfreader import SimplePDFViewer
-import odswriter as ods
+from apps.receipt_pdf_parser import ReceiptPdfParser
 
 
-class OcadoPdfParser(SimplePDFViewer):
-    def __init__(self, file_name: str):
-        if not file_name.endswith(".pdf"):
-            raise Exception("Only expected file format is PDF.")
+class OcadoReceiptPdfParser(ReceiptPdfParser):
+    def __init__(self, file_path: str):
+        super().__init__(file_path)
 
-        self.file_path = file_name
-
-        super().__init__(open(self.file_path, "rb"))
-
-    def parse(self):
+    def parse(self) -> str:
         self.navigate(1)
         self.render()
 
@@ -99,15 +90,3 @@ class OcadoPdfParser(SimplePDFViewer):
             items = items + coupons
 
         return items
-
-    def save_to_ods(self, output_location: str):
-        parsed_pdf = self.parse()
-
-        file_name = os.path.splitext(os.path.basename(self.file_path))[0]
-        file_path = os.path.join(output_location, f"{file_name}.ods")
-        with ods.writer(open(file_path, "wb")) as odsfile:
-            f = StringIO(parsed_pdf)
-            reader = csv.reader(f, delimiter="\t")
-            for r, row in enumerate(reader):
-                item, price = row
-                odsfile.writerow([item, float(price)])

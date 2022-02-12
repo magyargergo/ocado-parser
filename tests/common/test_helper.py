@@ -12,7 +12,7 @@ class TestHelper:
         with open(file_path, "r", encoding="utf-8") as opened_file:
             return opened_file.read()
 
-    def get_pdf(self, file_name: str):
+    def get_pdf_path(self, file_name: str):
         return os.path.join(
             self.get_tests_folder_location(), "data", "pdf", f"{file_name}.pdf"
         )
