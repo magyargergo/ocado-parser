@@ -58,11 +58,10 @@ class ReceiptPdfParser(SimplePDFViewer):
         file_path = os.path.join(output_location, f"{file_name}.xls")
 
         workbook = Workbook(file_path, {"constant_memory": True})
-
         worksheet = workbook.add_worksheet()
 
-        csv_lines = self.parsed_pdf.replace("\t", ",").splitlines()
-        reader = csv.reader(csv_lines)
+        f = StringIO(self.parsed_pdf)
+        reader = csv.reader(f, delimiter="\t")
         for r, row in enumerate(reader):
             for c, col in enumerate(row):
                 worksheet.write(r, c, col)
