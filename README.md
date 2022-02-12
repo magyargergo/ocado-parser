@@ -2,7 +2,7 @@
 
 [![Lint](https://github.com/magyargergo/ocado-parser/actions/workflows/black.yml/badge.svg)](https://github.com/magyargergo/ocado-parser/actions/workflows/black.yml) [![codecov](https://codecov.io/gh/magyargergo/ocado-parser/branch/main/graph/badge.svg?token=XV1VCFJBFB)](https://codecov.io/gh/magyargergo/ocado-parser) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-> Generate [OpenDocument](https://www.libreoffice.org/discover/what-is-opendocument/) Spreadsheet (ods) from [Ocado](https://www.ocado.com/) receipts
+> Generate [OpenDocument](https://www.libreoffice.org/discover/what-is-opendocument/) Spreadsheet (ods) and/or Excel Speadsheet (xls) from [Ocado](https://www.ocado.com/) receipts
 
 
 ## Install
