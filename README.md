@@ -24,12 +24,12 @@ Your ODS files will be in `/static/output`
 
 ## Future plans
 
-* Bring back xls output
-* Implement Sainsbury's pdf parser
-* Support parsing of substitutions
-* Implement api for uploading pdf
-* AWS integration
-* dockerization
+- [x] Bring back xls output
+- [ ] Implement Sainsbury's pdf parser
+- [ ] Support parsing of substitutions
+- [ ] Implement api for uploading pdf
+- [ ] AWS integration
+- [ ] dockerization
 
 ## Contributors 
 
